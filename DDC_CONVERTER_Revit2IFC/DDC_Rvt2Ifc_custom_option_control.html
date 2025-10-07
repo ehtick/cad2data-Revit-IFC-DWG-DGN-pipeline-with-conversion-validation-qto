@@ -414,504 +414,337 @@
         </div>
         
         <div class="stats" id="stats">
-            <span>Total Parameters: <span class="count">52</span></span>
+            <span>Total Parameters: <span class="count" id="totalCount">0</span></span>
             <span>Selected: <span class="count" id="selectedCount">0</span></span>
         </div>
     </div>
 
     <script>
         const parameters = [
-            {
-                name: "FileVersion",
-                type: "enum (UInt8)",
-                values: "0/ifc2x3/2x3/cv2 → IFC2x3 CV2; 1/ifc4rv/rv/referenceview → IFC4 Reference View; 2/ifc4dtv/dtv/designtransferview → IFC4 Design Transfer View; 3/ifc4x3/4x3",
-                defaultExample: "ifc4rv",
-                inputType: "select",
-                options: [
-                    {value: "ifc2x3", text: "IFC2x3 CV2"},
-                    {value: "ifc4rv", text: "IFC4 Reference View"},
-                    {value: "ifc4dtv", text: "IFC4 Design Transfer View"},
-                    {value: "ifc4x3", text: "IFC4x3"}
-                ]
-            },
-            {
-                name: "FileType",
-                type: "enum (UInt8)",
-                values: "0/ifc, 1/xml/ifcxml, 2/zip/ifczip, 3/hdf5",
-                defaultExample: "ifc",
-                inputType: "select",
-                options: [
-                    {value: "ifc", text: "IFC"},
-                    {value: "xml", text: "IFC XML"},
-                    {value: "zip", text: "IFC ZIP"},
-                    {value: "hdf5", text: "HDF5"}
-                ]
-            },
-            {
-                name: "LevelOfDetail",
-                type: "UInt8 (0..3)",
-                values: "0 - minimum, 3 - maximum detail",
-                defaultExample: "3",
-                inputType: "number",
-                min: 0,
-                max: 3
-            },
-            {
-                name: "IfcCommonPropSets",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "y",
-                inputType: "bool"
-            },
-            {
-                name: "BaseQuantities",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "y",
-                inputType: "bool"
-            },
-            {
-                name: "BimRvPropSets",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "y",
-                inputType: "bool"
-            },
-            {
-                name: "MaterialPropSets",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "y",
-                inputType: "bool"
-            },
-            {
-                name: "Schedules",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "y",
-                inputType: "bool"
-            },
-            {
-                name: "SchedFilter",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "y",
-                inputType: "bool"
-            },
-            {
-                name: "PaPurpose",
-                type: "enum (UInt8)",
-                values: "office/0, site/1, home/2, distributionpoint/3, userdefined/4",
-                defaultExample: "office",
-                inputType: "select",
-                options: [
-                    {value: "office", text: "Office"},
-                    {value: "site", text: "Site"},
-                    {value: "home", text: "Home"},
-                    {value: "distributionpoint", text: "Distribution Point"},
-                    {value: "userdefined", text: "User Defined"}
-                ]
-            },
-            {
-                name: "PaProjDesc",
-                type: "string",
-                values: "Project description",
-                defaultExample: "Downtown Office Tower Project",
-                inputType: "text"
-            },
-            {
-                name: "PaUserDefPurpose",
-                type: "string",
-                values: "User defined purpose",
-                defaultExample: "Coordination Model",
-                inputType: "text"
-            },
-            {
-                name: "PaAddrLine1",
-                type: "string",
-                values: "Address line 1",
-                defaultExample: "456 Oak Avenue",
-                inputType: "text"
-            },
-            {
-                name: "PaAddrLine2",
-                type: "string",
-                values: "Address line 2",
-                defaultExample: "Suite 500",
-                inputType: "text"
-            },
-            {
-                name: "PaPOBox",
-                type: "string",
-                values: "PO Box",
-                defaultExample: "PO Box 5678",
-                inputType: "text"
-            },
-            {
-                name: "PaCity",
-                type: "string",
-                values: "City",
-                defaultExample: "New York",
-                inputType: "text"
-            },
-            {
-                name: "PaPostCode",
-                type: "string",
-                values: "Postal code",
-                defaultExample: "10001",
-                inputType: "text"
-            },
-            {
-                name: "PaState",
-                type: "string",
-                values: "State/Region",
-                defaultExample: "NY",
-                inputType: "text"
-            },
-            {
-                name: "PaCountry",
-                type: "string",
-                values: "Country (ISO code)",
-                defaultExample: "US",
-                inputType: "text"
-            },
-            {
-                name: "PaIntLoc",
-                type: "string",
-                values: "Internal location",
-                defaultExample: "Construction Site 3",
-                inputType: "text"
-            },
-            {
-                name: "PaOverrideAddress",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "y",
-                inputType: "bool"
-            },
-            {
-                name: "PaAddrToBuild",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "y",
-                inputType: "bool"
-            },
-            {
-                name: "PaAddrToSite",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "n",
-                inputType: "bool"
-            },
-            {
-                name: "FhFileDesc",
-                type: "string",
-                values: "File description",
-                defaultExample: "IFC Export for Coordination",
-                inputType: "text"
-            },
-            {
-                name: "FhFileName",
-                type: "string",
-                values: "File name",
-                defaultExample: "Project_Export.ifc",
-                inputType: "text"
-            },
-            {
-                name: "FhAuthName",
-                type: "string",
-                values: "Author name",
-                defaultExample: "John Smith",
-                inputType: "text"
-            },
-            {
-                name: "FhAuthEmail",
-                type: "string",
-                values: "Author email",
-                defaultExample: "john.smith@example.com",
-                inputType: "text"
-            },
-            {
-                name: "FhOrganiz",
-                type: "string",
-                values: "Organization",
-                defaultExample: "DDC Company",
-                inputType: "text"
-            },
-            {
-                name: "FhAuthoriz",
-                type: "string",
-                values: "Authorization",
-                defaultExample: "Project Manager",
-                inputType: "text"
-            },
-            {
-                name: "FhAppName",
-                type: "string",
-                values: "Application name",
-                defaultExample: "Rvt2Ifc",
-                inputType: "text"
-            },
-            {
-                name: "FhVersion",
-                type: "string",
-                values: "Version",
-                defaultExample: "17.1.1",
-                inputType: "text"
-            },
-            {
-                name: "FhFSchema",
-                type: "string",
-                values: "IFC schema",
-                defaultExample: "IFC4",
-                inputType: "text"
-            },
-            {
-                name: "FhExchange",
-                type: "enum (UInt8)",
-                values: "none/1, architectural/2, mep/3, structural/4",
-                defaultExample: "architectural",
-                inputType: "select",
-                options: [
-                    {value: "none", text: "None"},
-                    {value: "architectural", text: "Architectural Reference Exchange"},
-                    {value: "mep", text: "MEP Reference Exchange"},
-                    {value: "structural", text: "Structural Reference Exchange"}
-                ]
-            },
-            {
-                name: "VisibleOnly",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "y",
-                inputType: "bool"
-            },
-            {
-                name: "FilterViewId",
-                type: "UInt64",
-                values: "View ID or 'auto'",
-                defaultExample: "auto",
-                inputType: "text"
-            },
-            {
-                name: "RoomsIn3D",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "y",
-                inputType: "bool"
-            },
-            {
-                name: "2DPlanViewEl",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "n",
-                inputType: "bool"
-            },
-            {
-                name: "2DRoomBound",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "y",
-                inputType: "bool"
-            },
-            {
-                name: "ExportBoundBox",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "n",
-                inputType: "bool"
-            },
-            {
-                name: "KeepTesGeomAsTriangl",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "y",
-                inputType: "bool"
-            },
-            {
-                name: "DisableAnalyzers",
-                type: "boolean",
-                values: "y/yes/true/1 or n/no/false/0",
-                defaultExample: "n",
-                inputType: "bool"
-            },
-            {
-                name: "ElementsToExport",
-                type: "list of UInt64",
-                values: "Element IDs separated by ; or ,",
-                defaultExample: "12345; 67890",
-                inputType: "text"
-            },
-            {
-                name: "CategoryMappingFile",
-                type: "string",
-                values: "Path to mapping file",
-                defaultExample: "C:\\mapping\\ifc_categories.json",
-                inputType: "text"
-            },
-            {
-                name: "ExcludeList",
-                type: "list of string",
-                values: "Categories separated by ; or ,",
-                defaultExample: "Walls; Doors",
-                inputType: "text"
-            },
-            {
-                name: "ClName",
-                type: "string",
-                values: "Classification name",
-                defaultExample: "OmniClass",
-                inputType: "text"
-            },
-            {
-                name: "ClSource",
-                type: "string",
-                values: "Classification source",
-                defaultExample: "OmniClass 2012",
-                inputType: "text"
-            },
-            {
-                name: "ClEdition",
-                type: "string",
-                values: "Edition",
-                defaultExample: "2015",
-                inputType: "text"
-            },
-            {
-                name: "ClEditTime",
-                type: "Int64",
-                values: "Edit time (Unix timestamp)",
-                defaultExample: "1727390000",
-                inputType: "number"
-            },
-            {
-                name: "ClDocLocation",
-                type: "string",
-                values: "Document location/URL",
-                defaultExample: "http://example.com/classifications.xml",
-                inputType: "text"
-            },
-            {
-                name: "ClFieldName",
-                type: "string",
-                values: "Classification field name",
-                defaultExample: "ClassificationCode",
-                inputType: "text"
-            },
-            {
-                name: "ProjOrigin",
-                type: "enum (UInt8)",
-                values: "currentshared/1, sitesurveypoint/2, projectbasepoint/3, internalcoordinates/4, projectbasepointtruenorth/5, internaltruenorth/6",
-                defaultExample: "projectbasepoint",
-                inputType: "select",
-                options: [
-                    {value: "currentshared", text: "Current/Shared"},
-                    {value: "sitesurveypoint", text: "Site Survey Point"},
-                    {value: "projectbasepoint", text: "Project Base Point"},
-                    {value: "internalcoordinates", text: "Internal Coordinates"},
-                    {value: "projectbasepointtruenorth", text: "Project Base Point True North"},
-                    {value: "internaltruenorth", text: "Internal True North"}
-                ]
-            },
-            {
-                name: "GeoRefCRSName",
-                type: "string",
-                values: "Coordinate Reference System name",
-                defaultExample: "NAD83 / UTM zone 18N",
-                inputType: "text"
-            },
-            {
-                name: "GeoRefCRSDesc",
-                type: "string",
-                values: "CRS description",
-                defaultExample: "North American Datum 1983",
-                inputType: "text"
-            },
-            {
-                name: "GeoRefEPSGCode",
-                type: "string",
-                values: "EPSG code",
-                defaultExample: "26918",
-                inputType: "text"
-            },
-            {
-                name: "GeoRefGeodeticDatum",
-                type: "string",
-                values: "Geodetic datum",
-                defaultExample: "NAD83",
-                inputType: "text"
-            },
-            {
-                name: "GeoRefMapUnit",
-                type: "string",
-                values: "Map unit",
-                defaultExample: "meter",
-                inputType: "text"
-            }
+          // ===== Core / File =====
+          {
+            name: "FileVersion",
+            type: "enum (UInt8)",
+            values: "Aliases or numbers: ifc2x2cv, ifc2x2sbca, ifc2x3cv, ifc2x3/ifc2x3cv2, ifc2x3gsa, ifc2x3bfm, ifc2x3cobie, ifc4, ifc4rv, ifc4dtv, ifc4x3, ifcsg",
+            defaultExample: "ifc2x3",
+            inputType: "select",
+            options: [
+              {value: "ifc2x2cv", text: "IFC2x2 CV"},
+              {value: "ifc2x2sbca", text: "IFC2x2 SBCA"},
+              {value: "ifc2x3cv", text: "IFC2x3 CV"},
+              {value: "ifc2x3", text: "IFC2x3 CV2 (default)"},
+              {value: "ifc2x3gsa", text: "IFC2x3 GSA Concept"},
+              {value: "ifc2x3bfm", text: "IFC2x3 Basic FM Handover"},
+              {value: "ifc2x3cobie", text: "IFC2x3 COBie 2.4"},
+              {value: "ifc4", text: "IFC4 (general)"},
+              {value: "ifc4rv", text: "IFC4 Reference View"},
+              {value: "ifc4dtv", text: "IFC4 Design Transfer View"},
+              {value: "ifc4x3", text: "IFC4x3"},
+              {value: "ifcsg", text: "IFC-SG (IFC4 based)"}
+            ]
+          },
+          {
+            name: "FileType",
+            type: "enum (UInt8)",
+            values: "ifc (0), xml/ifcxml (1), zip/ifczip (2), hdf5 (3)",
+            defaultExample: "ifc",
+            inputType: "select",
+            options: [
+              {value: "ifc", text: "IFC"},
+              {value: "xml", text: "IFC XML"},
+              {value: "zip", text: "IFC ZIP"},
+              {value: "hdf5", text: "HDF5"}
+            ]
+          },
+          {
+            name: "LevelOfDetail",
+            type: "UInt8 (0..3)",
+            values: "0=ExtraLow, 1=Low, 2=Medium, 3=High",
+            defaultExample: "1",
+            inputType: "number",
+            min: 0, max: 3
+          },
+          { name: "Phase", type: "UInt64", values: "Active Phase element id (UInt64 handle), 0=none", defaultExample: "0", inputType: "number" },
+          {
+            name: "SpaceBound",
+            type: "enum (UInt8)",
+            values: "none(1), 1stlevel(2), 2ndlevel(3)",
+            defaultExample: "none",
+            inputType: "select",
+            options: [
+              {value: "none", text: "None"},
+              {value: "1stlevel", text: "1st level"},
+              {value: "2ndlevel", text: "2nd level"}
+            ]
+          },
+          {
+            name: "ProjOrigin",
+            type: "enum (UInt8)",
+            values: "currentshared(1), sitesurveypoint(2), projectbasepoint(3), internalcoordinates(4), projectbasepointtruenorth(5), internaltruenorth(6)",
+            defaultExample: "currentshared",
+            inputType: "select",
+            options: [
+              {value: "currentshared", text: "Current/Shared"},
+              {value: "sitesurveypoint", text: "Site Survey Point"},
+              {value: "projectbasepoint", text: "Project Base Point"},
+              {value: "internalcoordinates", text: "Internal Coordinates"},
+              {value: "projectbasepointtruenorth", text: "Project Base Point True North"},
+              {value: "internaltruenorth", text: "Internal True North"}
+            ]
+          },
+          { name: "Split", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "Steel", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "LinkedAsSeparate", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+
+          // ===== PropertySets group =====
+          {
+            name: "PropertySets",
+            type: "bitmask (UInt32 or tokens)",
+            values: "UInt32 value OR tokens separated by '|': BimRvPropSets|IgnoreIfcPg|IfcCommonPropSets|BaseQuantities|Schedules|SchedFilter|MaterialPropSets|UserDefPSets|ParamMapTable",
+            defaultExample: "IgnoreIfcPg",
+            inputType: "text"
+          },
+          { name: "BimRvPropSets", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "IgnoreIfcPg", type: "boolean", values: "y/n", defaultExample: "y", inputType: "bool" },
+          { name: "IfcCommonPropSets", type: "boolean", values: "y/n", defaultExample: "y", inputType: "bool" },
+          { name: "BaseQuantities", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "Schedules", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "SchedFilter", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "MaterialPropSets", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "UserDefPSets", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "UDefPSetsFileName", type: "string (.txt)", values: "TXT file path", defaultExample: "C:\\psets\\user_psets.txt", inputType: "text" },
+          { name: "ParamMapTable", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "ParamMapFileName", type: "string (.txt)", values: "TXT file path", defaultExample: "C:\\mapping\\parammap.txt", inputType: "text" },
+
+          // ===== Header / FH =====
+          { name: "FhFileDesc", type: "string", values: "File description", defaultExample: "Standard IFC export", inputType: "text" },
+          { name: "FhFileName", type: "string", values: "File name", defaultExample: "Project_Export.ifc", inputType: "text" },
+          { name: "FhAuthName", type: "string", values: "Author name", defaultExample: "User", inputType: "text" },
+          { name: "FhAuthEmail", type: "string", values: "Author email", defaultExample: "user@email.com", inputType: "text" },
+          { name: "FhOrganiz", type: "string", values: "Organization", defaultExample: "ODA", inputType: "text" },
+          { name: "FhAuthoriz", type: "string", values: "Authorization", defaultExample: "AuthorizationTest", inputType: "text" },
+          { name: "FhAppName", type: "string", values: "Application name", defaultExample: "Rvt2Ifc", inputType: "text" },
+          { name: "FhVersion", type: "string", values: "Version string", defaultExample: "20181217_1515(x64)", inputType: "text" },
+          { name: "FhFSchema", type: "string", values: "IFC schema label", defaultExample: "IFC4", inputType: "text" },
+          {
+            name: "FhExchange",
+            type: "enum (UInt8)",
+            values: "none(1), architectural(2), mep(3), structural(4)",
+            defaultExample: "none",
+            inputType: "select",
+            options: [
+              {value: "none", text: "None"},
+              {value: "architectural", text: "Architectural Reference Exchange"},
+              {value: "mep", text: "MEP Reference Exchange"},
+              {value: "structural", text: "Structural Reference Exchange"}
+            ]
+          },
+
+          // ===== Project Address =====
+          {
+            name: "PaPurpose",
+            type: "enum (UInt8)",
+            values: "none, office, site, home, distributionpoint, userdefined",
+            defaultExample: "none",
+            inputType: "select",
+            options: [
+              {value: "none", text: "None"},
+              {value: "office", text: "Office"},
+              {value: "site", text: "Site"},
+              {value: "home", text: "Home"},
+              {value: "distributionpoint", text: "Distribution Point"},
+              {value: "userdefined", text: "User Defined"}
+            ]
+          },
+          { name: "PaProjDesc", type: "string", values: "Project description", defaultExample: "", inputType: "text" },
+          { name: "PaUserDefPurpose", type: "string", values: "User purpose text", defaultExample: "", inputType: "text" },
+          { name: "PaAddrLine1", type: "string", values: "Address line 1", defaultExample: "", inputType: "text" },
+          { name: "PaAddrLine2", type: "string", values: "Address line 2", defaultExample: "", inputType: "text" },
+          { name: "PaPOBox", type: "string", values: "PO Box", defaultExample: "", inputType: "text" },
+          { name: "PaCity", type: "string", values: "City", defaultExample: "", inputType: "text" },
+          { name: "PaPostCode", type: "string", values: "Postal code", defaultExample: "", inputType: "text" },
+          { name: "PaState", type: "string", values: "State/Region", defaultExample: "", inputType: "text" },
+          { name: "PaCountry", type: "string", values: "Country code", defaultExample: "", inputType: "text" },
+          { name: "PaIntLoc", type: "string", values: "Internal location", defaultExample: "", inputType: "text" },
+          { name: "PaOverrideAddress", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "PaAddrToBuild", type: "boolean", values: "y/n", defaultExample: "y", inputType: "bool" },
+          { name: "PaAddrToSite", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+
+          // ===== Visibility / Selection =====
+          { name: "2DPlanViewEl", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "VisibleOnly", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "FilterViewId", type: "UInt64 or 'auto'", values: "View id handle or 'auto'", defaultExample: "", inputType: "text" },
+          { name: "RoomsIn3D", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+
+          // ===== CLOD (tessellation) =====
+          { name: "CLOD_MaxNumGridLines", type: "UInt32", values: "Max grid lines", defaultExample: "10000", inputType: "number" },
+          { name: "CLOD_MaxFacetEdgeLength", type: "double", values: "Max facet edge length", defaultExample: "100000", inputType: "text" },
+          { name: "CLOD_NormalTolerance", type: "double", values: "Normal tolerance (deg)", defaultExample: "360", inputType: "text" },
+          { name: "CLOD_SurfaceTolerance", type: "double", values: "Surface tolerance", defaultExample: "0", inputType: "text" },
+          { name: "CLOD_GridAspectRatio", type: "double", values: "Grid aspect ratio", defaultExample: "0", inputType: "text" },
+          { name: "CLOD_BetweenKnots", type: "UInt16", values: "Between knots", defaultExample: "0", inputType: "number" },
+          { name: "CLOD_PointsPerEdge", type: "UInt32", values: "Points per edge", defaultExample: "0", inputType: "number" },
+          { name: "CLOD_RecalculateSurfaceTolerance", type: "boolean", values: "y/n", defaultExample: "y", inputType: "bool" },
+          { name: "CLOD_FastMode", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "CLOD_UseTesselation", type: "boolean", values: "y/n", defaultExample: "y", inputType: "bool" },
+          { name: "CLOD_Curve3dPointsEpsilon", type: "double", values: "Curve points epsilon", defaultExample: "0.0", inputType: "text" },
+
+          // ===== Advanced options (bitmask + individual toggles) =====
+          {
+            name: "AdvancedOptions",
+            type: "bitmask (UInt32 or tokens)",
+            values: "Tokens with '|': PartsAsBuildElem|SolidModel|UseActiveView|2DRoomBound|IncSiteElev|StoreGuidAsParam|ExportBoundBox|KeepTesGeomAsTriangl|CoplanarFacesToExtrusion|DisableAnalyzers|SystemMaterialIsMain|ExportGeometryOnly",
+            defaultExample: "CoplanarFacesToExtrusion|SystemMaterialIsMain",
+            inputType: "text"
+          },
+          { name: "PartsAsBuildElem", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "SolidModel", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "UseActiveView", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "2DRoomBound", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "IncSiteElev", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "StoreGuidAsParam", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "ExportBoundBox", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "KeepTesGeomAsTriangl", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "CoplanarFacesToExtrusion", type: "boolean", values: "y/n", defaultExample: "y", inputType: "bool" },
+          { name: "DisableAnalyzers", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "SystemMaterialIsMain", type: "boolean", values: "y/n", defaultExample: "y", inputType: "bool" },
+          { name: "ExportGeometryOnly", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+
+          // ===== Naming behavior =====
+          { name: "UseFamTypeRef", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "UseVisibleNameAsEntityName", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+          { name: "UseTypeNameOnlyForIfcType", type: "boolean", values: "y/n", defaultExample: "n", inputType: "bool" },
+
+          // ===== Elements selection lists =====
+          { name: "ElementsToExport", type: "list of UInt64", values: "IDs separated by ';' or ','", defaultExample: "12345; 67890", inputType: "text" },
+          { name: "ElementsToExclude", type: "list of UInt64", values: "IDs separated by ';' or ','", defaultExample: "", inputType: "text" },
+          { name: "ExcludeList", type: "list of string", values: "Entity types separated by ';' or ','", defaultExample: "IfcSpace; IfcOpeningElement", inputType: "text" },
+
+          // ===== Classification =====
+          { name: "ClName", type: "string", values: "Classification name", defaultExample: "", inputType: "text" },
+          { name: "ClSource", type: "string", values: "Classification source", defaultExample: "", inputType: "text" },
+          { name: "ClEdition", type: "string", values: "Edition", defaultExample: "", inputType: "text" },
+          { name: "ClEditTime", type: "Int64", values: "Unix timestamp", defaultExample: "0", inputType: "number" },
+          { name: "ClDocLocation", type: "string", values: "Doc/URL", defaultExample: "", inputType: "text" },
+          { name: "ClFieldName", type: "string", values: "Field name", defaultExample: "", inputType: "text" },
+
+          // ===== Geo =====
+          { name: "GeoRefCRSName", type: "string", values: "CRS name", defaultExample: "", inputType: "text" },
+          { name: "GeoRefCRSDesc", type: "string", values: "CRS description", defaultExample: "", inputType: "text" },
+          { name: "GeoRefEPSGCode", type: "string", values: "EPSG code", defaultExample: "", inputType: "text" },
+          { name: "GeoRefGeodeticDatum", type: "string", values: "Geodetic datum", defaultExample: "", inputType: "text" },
+          { name: "GeoRefMapUnit", type: "string", values: "Map unit", defaultExample: "meter", inputType: "text" },
+
+          // ===== Facility =====
+          {
+            name: "FacilityType",
+            type: "enum (UInt8)",
+            values: "notdefined(1), building(2), bridge(3), railway(4), road(5), marinefacility(6)",
+            defaultExample: "building",
+            inputType: "select",
+            options: [
+              {value: "notdefined", text: "Not defined"},
+              {value: "building", text: "Building"},
+              {value: "bridge", text: "Bridge"},
+              {value: "railway", text: "Railway"},
+              {value: "road", text: "Road"},
+              {value: "marinefacility", text: "Marine facility"}
+            ]
+          },
+          { name: "FacilityPredefinedType", type: "string", values: "Free text", defaultExample: "", inputType: "text" },
+
+          // ===== Category mapping (.txt only) =====
+          { name: "CategoryMappingFile", type: "string (.txt)", values: "TXT file path", defaultExample: "C:\\mapping\\categories.txt", inputType: "text" },
+          { name: "CategoryMappingTemplate", type: "string (.txt)", values: "TXT file path", defaultExample: "C:\\mapping\\category_template.txt", inputType: "text" },
+
+          // ===== Company / Contact =====
+          { name: "CompanyType", type: "string", values: "Company type", defaultExample: "", inputType: "text" },
+          { name: "CompanyName", type: "string", values: "Company name", defaultExample: "", inputType: "text" },
+          { name: "StreetAddr", type: "string", values: "Company street", defaultExample: "", inputType: "text" },
+          { name: "City", type: "string", values: "Company city", defaultExample: "", inputType: "text" },
+          { name: "State", type: "string", values: "Company state", defaultExample: "", inputType: "text" },
+          { name: "PostCode", type: "string", values: "Company postal code", defaultExample: "", inputType: "text" },
+          { name: "Country", type: "string", values: "Company country", defaultExample: "", inputType: "text" },
+          { name: "CompanyPhone", type: "string", values: "Company phone", defaultExample: "", inputType: "text" },
+          { name: "CompanyEmail", type: "string", values: "Company email", defaultExample: "", inputType: "text" },
+
+          // ===== Building / Project / Site =====
+          { name: "BuildName", type: "string", values: "Building name", defaultExample: "", inputType: "text" },
+          { name: "BuildType", type: "string", values: "Building type", defaultExample: "", inputType: "text" },
+          { name: "BuildDesc", type: "string", values: "Building description", defaultExample: "", inputType: "text" },
+          { name: "ProjName", type: "string", values: "Project name", defaultExample: "", inputType: "text" },
+          { name: "ProjDesc", type: "string", values: "Project description (header)", defaultExample: "", inputType: "text" },
+          { name: "ProjPhase", type: "string", values: "Project phase", defaultExample: "", inputType: "text" },
+          { name: "SiteLoc", type: "string", values: "Site location", defaultExample: "", inputType: "text" },
+          { name: "SiteDesc", type: "string", values: "Site description", defaultExample: "", inputType: "text" }
         ];
 
+
         function createTable() {
-            const tbody = document.getElementById('paramTable');
-            tbody.innerHTML = '';
-            
-            parameters.forEach(param => {
-                const tr = document.createElement('tr');
-                
-                const tdCheck = document.createElement('td');
-                tdCheck.className = 'checkbox-cell';
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.id = 'check_' + param.name;
-                checkbox.onchange = updateStats;
-                tdCheck.appendChild(checkbox);
-                tr.appendChild(tdCheck);
-                
-                const tdName = document.createElement('td');
-                tdName.innerHTML = `<span class="param-name">${param.name}</span>`;
-                tr.appendChild(tdName);
-                
-                const tdType = document.createElement('td');
-                tdType.innerHTML = `<div class="type-info"><span class="type-label">${param.type}</span><br>${param.values}</div>`;
-                tr.appendChild(tdType);
-                
-                const tdExample = document.createElement('td');
-                tdExample.innerHTML = `<span class="example">${param.defaultExample}</span>`;
-                tr.appendChild(tdExample);
-                
-                const tdInput = document.createElement('td');
-                let input;
-                
-                if (param.inputType === 'bool') {
-                    input = document.createElement('select');
-                    input.innerHTML = '<option value="">--</option><option value="y">Yes (y)</option><option value="n">No (n)</option>';
-                } else if (param.inputType === 'select') {
-                    input = document.createElement('select');
-                    input.innerHTML = '<option value="">--</option>';
-                    param.options.forEach(opt => {
-                        const option = document.createElement('option');
-                        option.value = opt.value;
-                        option.textContent = opt.text;
-                        input.appendChild(option);
-                    });
-                } else if (param.inputType === 'number') {
-                    input = document.createElement('input');
-                    input.type = 'number';
-                    if (param.min !== undefined) input.min = param.min;
-                    if (param.max !== undefined) input.max = param.max;
-                } else {
-                    input = document.createElement('input');
-                    input.type = 'text';
-                }
-                
-                input.id = 'input_' + param.name;
-                tdInput.appendChild(input);
-                tr.appendChild(tdInput);
-                
-                tbody.appendChild(tr);
-            });
-            
-            updateStats();
+          const tbody = document.getElementById('paramTable');
+          tbody.innerHTML = '';
+
+          parameters.forEach(param => {
+            const tr = document.createElement('tr');
+
+            const tdCheck = document.createElement('td');
+            tdCheck.className = 'checkbox-cell';
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = 'check_' + param.name;
+            checkbox.onchange = updateStats;
+            tdCheck.appendChild(checkbox);
+            tr.appendChild(tdCheck);
+
+            const tdName = document.createElement('td');
+            tdName.innerHTML = `<span class="param-name">${param.name}</span>`;
+            tr.appendChild(tdName);
+
+            const tdType = document.createElement('td');
+            tdType.innerHTML = `<div class="type-info"><span class="type-label">${param.type}</span><br>${param.values}</div>`;
+            tr.appendChild(tdType);
+
+            const tdExample = document.createElement('td');
+            tdExample.innerHTML = `<span class="example">${param.defaultExample}</span>`;
+            tr.appendChild(tdExample);
+
+            const tdInput = document.createElement('td');
+            let input;
+
+            if (param.inputType === 'bool') {
+              input = document.createElement('select');
+              input.innerHTML = '<option value="">--</option><option value="y">Yes (y)</option><option value="n">No (n)</option>';
+            } else if (param.inputType === 'select') {
+              input = document.createElement('select');
+              input.innerHTML = '<option value="">--</option>';
+              (param.options || []).forEach(opt => {
+                const option = document.createElement('option');
+                option.value = opt.value;
+                option.textContent = opt.text;
+                input.appendChild(option);
+              });
+            } else if (param.inputType === 'number') {
+              input = document.createElement('input');
+              input.type = 'number';
+              if (param.min !== undefined) input.min = param.min;
+              if (param.max !== undefined) input.max = param.max;
+            } else {
+              input = document.createElement('input');
+              input.type = 'text';
+            }
+
+            input.id = 'input_' + param.name;
+            tdInput.appendChild(input);
+            tr.appendChild(tdInput);
+
+            tbody.appendChild(tr);
+          });
+
+          document.getElementById('totalCount').textContent = parameters.length;
+
+          updateStats();
         }
+
 
         function loadAmericanDefaults() {
             parameters.forEach(param => {
@@ -1001,7 +834,8 @@
                 const input = document.getElementById('input_' + param.name);
                 
                 if (checkbox && checkbox.checked && input && input.value) {
-                    const value = input.value.includes(' ') ? `"${input.value}"` : input.value;
+                    const needsQuotes = /[\s|;=]/.test(input.value);
+                    const value = needsQuotes ? `"${input.value.replace(/"/g, '\\"')}"` : input.value;
                     selectedParams.push(`${param.name}=${value}`);
                 }
             });
@@ -1019,7 +853,9 @@
                 const checkbox = document.getElementById('check_' + param.name);
                 const input = document.getElementById('input_' + param.name);
                 if (checkbox && checkbox.checked && input && input.value) {
-                    configParams.push(`${param.name}=${input.value}`);
+                    const needsQuotes2 = /[\s|;=]/.test(input.value);
+                    const value2 = needsQuotes2 ? `"${input.value.replace(/"/g, '\\"')}"` : input.value;
+                    configParams.push(`${param.name}=${value2}`);
                 }
             });
             const command2 = configParams.join('; ');
